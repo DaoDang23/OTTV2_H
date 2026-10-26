@@ -1,0 +1,22 @@
+{
+  "name": "ottv2-replay-viewer",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node node_modules/vite/bin/vite.js",
+    "build": "node node_modules/vite/bin/vite.js build"
+  },
+  "dependencies": {
+    "@stomp/stompjs": "^7.5.0",
+    "pixi.js": "^8.12.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-router-dom": "^7.18.4",
+    "sockjs-client": "^1.6.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.7.0",
+    "vite": "^6.4.0"
+  }
+}
