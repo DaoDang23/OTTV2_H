@@ -1,0 +1,1 @@
+{"version":1,"matchId":"cli-205","seed":205,"mapConfig":{"obstacles":8,"traps":0,"speeds":0,"mutations":0},"teams":{"A":"worker/bots/malicious/open_socket.py","B":"worker/bots/python/bot.py"},"turns":[],"result":{"winner":"B","reason":"BOT_CRASHED"}}

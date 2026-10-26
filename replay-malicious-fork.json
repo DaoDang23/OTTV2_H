@@ -1,0 +1,1 @@
+{"version":1,"matchId":"cli-203","seed":203,"mapConfig":{"obstacles":8,"traps":0,"speeds":0,"mutations":0},"teams":{"A":"worker/bots/malicious/fork_bomb.py","B":"worker/bots/python/bot.py"},"turns":[],"result":{"winner":"B","reason":"BOT_CRASHED"}}
