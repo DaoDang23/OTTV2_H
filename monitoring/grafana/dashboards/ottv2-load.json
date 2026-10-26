@@ -1,0 +1,29 @@
+{
+  "uid": "ottv2-load",
+  "title": "OTTV2 Load and Workers",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "15s",
+  "time": { "from": "now-1h", "to": "now" },
+  "panels": [
+    { "id": 1, "type": "timeseries", "title": "Queue ready messages", "gridPos": { "x": 0, "y": 0, "w": 12, "h": 8 }, "targets": [
+      { "expr": "rabbitmq_queue_messages_ready{queue=~\"compile.q|match.ladder.q|match.tournament.q\"}", "legendFormat": "{{queue}}", "refId": "A" }
+    ] },
+    { "id": 2, "type": "timeseries", "title": "Queue lag (p95 seconds)", "gridPos": { "x": 12, "y": 0, "w": 12, "h": 8 }, "targets": [
+      { "expr": "histogram_quantile(0.95, sum by (le) (rate(ottv2_match_queue_lag_seconds_bucket[5m])))", "legendFormat": "p95", "refId": "A" }
+    ] },
+    { "id": 3, "type": "timeseries", "title": "Match runtime (p95 seconds)", "gridPos": { "x": 0, "y": 8, "w": 12, "h": 8 }, "targets": [
+      { "expr": "histogram_quantile(0.95, sum by (le) (rate(ottv2_match_execution_seconds_bucket[5m])))", "legendFormat": "p95", "refId": "A" }
+    ] },
+    { "id": 4, "type": "timeseries", "title": "Worker CPU usage", "gridPos": { "x": 12, "y": 8, "w": 12, "h": 8 }, "targets": [
+      { "expr": "process_cpu_usage{job=\"ottv2-match-worker\"}", "legendFormat": "process CPU", "refId": "A" }
+    ] },
+    { "id": 5, "type": "timeseries", "title": "Worker matches in flight", "gridPos": { "x": 0, "y": 16, "w": 12, "h": 8 }, "targets": [
+      { "expr": "ottv2_worker_in_flight", "legendFormat": "in flight", "refId": "A" }
+    ] },
+    { "id": 6, "type": "timeseries", "title": "Completed and failed matches", "gridPos": { "x": 12, "y": 16, "w": 12, "h": 8 }, "targets": [
+      { "expr": "rate(ottv2_matches_finished_total[5m])", "legendFormat": "finished/s", "refId": "A" },
+      { "expr": "rate(ottv2_matches_failed_total[5m])", "legendFormat": "failed/s", "refId": "B" }
+    ] }
+  ]
+}
