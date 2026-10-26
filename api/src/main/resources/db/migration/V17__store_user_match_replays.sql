@@ -1,0 +1,1 @@
+ALTER TABLE user_matches ADD COLUMN IF NOT EXISTS replay_data JSONB;
