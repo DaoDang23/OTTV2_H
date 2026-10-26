@@ -1,0 +1,44 @@
+apiVersion: keda.sh/v1alpha1
+kind: TriggerAuthentication
+metadata:
+  name: ottv2-rabbitmq-auth
+spec:
+  secretTargetRef:
+    - parameter: host
+      name: ottv2-rabbitmq-credentials
+      key: host
+    - parameter: username
+      name: ottv2-rabbitmq-credentials
+      key: username
+    - parameter: password
+      name: ottv2-rabbitmq-credentials
+      key: password
+---
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: ottv2-match-worker
+spec:
+  scaleTargetRef:
+    name: ottv2-match-worker
+  pollingInterval: 15
+  cooldownPeriod: 120
+  minReplicaCount: 1
+  maxReplicaCount: 10
+  triggers:
+    - type: rabbitmq
+      metadata:
+        protocol: amqp
+        queueName: match.ladder.q
+        mode: QueueLength
+        value: "8"
+      authenticationRef:
+        name: ottv2-rabbitmq-auth
+    - type: rabbitmq
+      metadata:
+        protocol: amqp
+        queueName: match.tournament.q
+        mode: QueueLength
+        value: "2"
+      authenticationRef:
+        name: ottv2-rabbitmq-auth
